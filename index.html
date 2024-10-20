@@ -63,7 +63,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="clock" id="clock">00:00:00</div>
+        <div class="clock" id="clock">00:00:00 AM</div>
         <div class="spotify" id="spotify">
             <img id="album-art" src="https://via.placeholder.com/200" alt="Album Art">
             <div class="track-info">
@@ -80,48 +80,9 @@
     </div>
 
     <script>
-        // Configuration (No sensitive info here)
         const redirectUri = 'YOUR_REDIRECT_URI'; // This will be set on the backend
         let accessToken = '';
 
-        // Function to update the clock
         function updateClock() {
             const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('clock').textContent = `${hours}:${minutes}:${seconds}`;
-        }
-
-        // Fetch currently playing track (you'll implement fetching the access token securely)
-        async function fetchCurrentlyPlayingTrack() {
-            const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
-                headers: {
-                    'Authorization': 'Bearer ' + accessToken
-                }
-            });
-
-            if (response.ok) {
-                const trackData = await response.json();
-                if (trackData && trackData.is_playing) {
-                    document.getElementById('track-name').textContent = trackData.item.name;
-                    document.getElementById('artist-name').textContent = trackData.item.artists.map(artist => artist.name).join(', ');
-                    document.getElementById('album-art').src = trackData.item.album.images[0].url;
-                }
-            } else {
-                console.error('Error fetching currently playing track:', response.status, response.statusText);
-            }
-        }
-
-        // Start the app
-        function startApp() {
-            fetchAccessToken(); // Implement this securely in your backend
-            setInterval(fetchCurrentlyPlayingTrack, 10000); // Refresh every 10 seconds
-        }
-
-        // Update clock every second
-        setInterval(updateClock, 1000);
-        startApp();
-    </script>
-</body>
-</html>
+      
